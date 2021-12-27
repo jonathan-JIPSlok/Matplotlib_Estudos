@@ -1,0 +1,22 @@
+from functools import reduce
+
+height_weight_age = [ 70, #Polegadas
+                                        170, #quilos
+                                         62, #anos
+                                         ]
+
+grades = [95, 80, 75, 62]
+
+def Vector_Add(v, w):
+    """Somando Elementos correspondentes"""
+    return [v_i + w_i for v_i, w_i in zip(v, w)]
+    
+vect = Vector_Add(height_weight_age, grades)
+print(vect)
+
+def vector_sum(vectors):
+    return reduce(Vector_Add, vectors)
+
+vect2 = vector_sum([height_weight_age, grades])
+
+print(vect2)
