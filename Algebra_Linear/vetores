@@ -1,4 +1,4 @@
-from functools import reduce
+from functools import reduce, partial
 """
 Vetores são objetos que podem ser somados juntos (para formar novos vetores)
 e que podem ser multiplicados pelos escalares (por exemplo, números),
@@ -15,14 +15,45 @@ grades = [95, 80, 75, 62]
 
 
 #Para somar podemos usar facilmente o vetor zip() e eles precisam ser de tamanhos iguais
-def Vector_Add(v, w):
+def vector_add(v, w):
     """Somando Elementos correspondentes"""
     return [v_i + w_i for v_i, w_i in zip(v, w)]
     
 #Para criar um novo vetor com a soma dos outros vetores podemos usar um reduce
 def vector_sum(vectors):
-    return reduce(Vector_Add, vectors)
+    return reduce(vector_add, vectors)
     
 #Ou até mesmo
 vector_sum =partial(reduce, vector_add)
 
+
+
+"""
+Tambem precisamos ser capazes de multiplicar um vetor por um escalar, que simplesmente fazemos ao multiplicar cada elemento do vetor por aquele número
+"""
+
+def escalar_multiply(c, v):
+    #c é um número, v é um vetor
+    return [c * v_i for v_i in v]
+    
+escalar_multiply(5, grades)
+
+"""
+isso permite que computemos a média de uma lista de vetores (do mesmo tamanho)
+"""
+def vector_mean(vectors):
+    #Computar o vetor cújo i-ésimo elemento seja a média dos i-ésimos elementos dos vetores inclusos
+    n = len(vectors)
+    return escalar_multiply(1/n,  vector_sum(vectors))
+    
+vector_mean([height_weight_age, grades])
+
+"""
+Uma ferramenta menos óbvia é o produto escalar (dot product). O produto escalar de dois vetores é a soma de seus produtos componente a componente
+"""
+
+def dot(v, w):
+    #v_1 * w_1 + ... + v_n * w_n
+    return sum(v_i * w_i for v_i, w_i in zip(v, w))
+    
+dot(height_weight_age, grades)
