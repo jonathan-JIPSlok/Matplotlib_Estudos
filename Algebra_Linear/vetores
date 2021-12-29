@@ -1,5 +1,11 @@
 from functools import reduce
+"""
+Vetores são objetos que podem ser somados juntos (para formar novos vetores)
+e que podem ser multiplicados pelos escalares (por exemplo, números),
+tambem para formar vetores novos
+"""
 
+# Como não a vetores no python eles são represe tados por listas
 height_weight_age = [ 70, #Polegadas
                                         170, #quilos
                                          62, #anos
@@ -7,16 +13,16 @@ height_weight_age = [ 70, #Polegadas
 
 grades = [95, 80, 75, 62]
 
+
+#Para somar podemos usar facilmente o vetor zip() e eles precisam ser de tamanhos iguais
 def Vector_Add(v, w):
     """Somando Elementos correspondentes"""
     return [v_i + w_i for v_i, w_i in zip(v, w)]
     
-vect = Vector_Add(height_weight_age, grades)
-print(vect)
-
+#Para criar um novo vetor com a soma dos outros vetores podemos usar um reduce
 def vector_sum(vectors):
     return reduce(Vector_Add, vectors)
+    
+#Ou até mesmo
+vector_sum =partial(reduce, vector_add)
 
-vect2 = vector_sum([height_weight_age, grades])
-
-print(vect2)
